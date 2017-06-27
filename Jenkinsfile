@@ -24,14 +24,12 @@ pipeline {
         )
       }
     }
-    stage('Frontend') {
-      agent { 
-        docker 'node:alpine'
-      }
+    stage('Frontend') {      
       steps {
-        bat 'yarn install'
-        bat 'yarn global add gulp-cli'
-        bat 'gulp test'
+        bat 'mvn com.github.eirslett:frontend-maven-plugin:install-node-and-yarn -DnodeVersion=v6.9.4 -DyarnVersion=v0.19.1'
+        bat 'mvn com.github.eirslett:frontend-maven-plugin:yarn'
+        bat 'mvn com.github.eirslett:frontend-maven-plugin:gulp -Dfrontend.gulp.arguments=test'
+        junit '**/target/test-results/karma/TESTS-*.xml'
       }
     }
     stage('Static Analysis') {
