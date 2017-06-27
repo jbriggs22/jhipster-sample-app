@@ -26,7 +26,9 @@ pipeline {
     }
     stage('Frontend') {
       steps {
-        bat 'echo Frontend'
+        bat 'yarn install'
+        bat 'yarn global add gulp-cli'
+        bat 'gulp test'
       }
     }
     stage('Static Analysis') {
