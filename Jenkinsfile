@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        bat 'mvnw -B clean package'
+        bat 'mvnw -B -Dskiptests clean package'
         stash(name: 'war', includes: '/target/**')
       }
     }
@@ -11,7 +11,9 @@ pipeline {
       steps {
         parallel(
           "Unit test": {
-            bat 'echo unit test'
+            unstash 'war'
+            bat 'mvnw -B test'
+            junit '**/surefire-reports/**/*.xml'
             
           },
           "Performance": {
