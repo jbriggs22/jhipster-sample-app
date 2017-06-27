@@ -3,7 +3,8 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        bat 'mvn'
+        bat 'mvnw -B clean package'
+        stash(name: 'war', includes: 'target')
       }
     }
     stage('Backend') {
