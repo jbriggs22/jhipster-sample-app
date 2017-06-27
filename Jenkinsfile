@@ -26,7 +26,7 @@ pipeline {
     }
     stage('Frontend') {
       agent { 
-        docker: 'node:alpine'
+        docker 'node:alpine'
       }
       steps {
         bat 'yarn install'
