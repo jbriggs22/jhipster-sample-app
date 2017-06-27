@@ -38,9 +38,9 @@ pipeline {
         checkstyle(pattern: '**/checkstyle-result.xml')
       }
     }
-    stage('Deploy') {
+    stage('Archive') {
       steps {
-        bat 'echo deploy'
+        archiveArtifacts(artifacts: '**/target/*.war', fingerprint: true)
       }
     }
   }
