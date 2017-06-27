@@ -25,7 +25,9 @@ pipeline {
       }
     }
     stage('Frontend') {
-      agent { docker: 'node:alpine'}
+      agent { 
+        docker: 'node:alpine'
+      }
       steps {
         bat 'yarn install'
         bat 'yarn global add gulp-cli'
