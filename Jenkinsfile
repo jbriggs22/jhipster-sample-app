@@ -24,7 +24,7 @@ pipeline {
         )
       }
     }
-    stage('Frontend') {      
+    stage('Frontend') {
       steps {
         bat 'mvn com.github.eirslett:frontend-maven-plugin:install-node-and-yarn -DnodeVersion=v6.9.4 -DyarnVersion=v0.19.1'
         bat 'mvn com.github.eirslett:frontend-maven-plugin:yarn'
@@ -34,7 +34,8 @@ pipeline {
     }
     stage('Static Analysis') {
       steps {
-        bat 'echo static analysis'
+        bat 'mvn checkstyle:checkstyle'
+        checkstyle(pattern: '**/checkstyle-result.xml')
       }
     }
     stage('Deploy') {
